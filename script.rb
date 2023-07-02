@@ -10,7 +10,7 @@ def select_word(new_lines)
   new_lines.each do |line|
     words.push(line) if line.length > 5 && line.length < 12
   end
-  secret_word = words.sample
+  secret_word = words.sample.split('')
   display = Array.new(secret_word.length, '_')
   puts display.join(' ')
 end
@@ -21,3 +21,9 @@ letter = gets.chomp
 
 correct_letters = []
 incorrect_letters = []
+
+i = 0
+while i < secret_word.length
+  display[i] = letter if secret_word[i]eql?(letter)
+  i += 1
+end
