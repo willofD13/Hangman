@@ -29,15 +29,16 @@ def display_choices
   else 
     incorrect_letters.push(letter)
   end
-end
+  puts correct_letters
+  puts incorrect_letters
 
-i = 0
-while i < secret_word.length
-  if secret_word[i].eql?(letter) == true
-    display[i] = letter
-  end 
-  i += 1
-end
+  i = 0
+  while i < secret_word.length
+    if secret_word[i].eql?(letter) == true
+      display[i] = letter
+    end 
+    i += 1
+  end
 end
 
 select_word(new_lines)
