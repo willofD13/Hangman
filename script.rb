@@ -11,7 +11,10 @@ def select_word(new_lines)
     words.push(line) if line.length > 5 && line.length < 12
   end
   secret_word = words.sample
+  display = Array.new(secret_word.length, '_')
+  puts display.join(' ')
 end
+select_word(new_lines)
 
 puts "Make your guess"
 letter = gets.chomp
