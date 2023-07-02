@@ -6,10 +6,13 @@ class Game
   File.read('google-10000-english-no-swears.txt')
 
   attr_reader :secret_word,:display
+  attr_accessor :correct_letters,:incorrect_letters
   
   def initialize
     @lines = File.readlines('google-10000-english-no-swears.txt').map { |line| line.gsub(/\s/, '') }
-
+    
+    @correct_letters = []
+    @incorrect_letters = []
     @words = []
     @lines.each do |line|
       @words.push(line) if line.length > 5 && line.length < 12
@@ -21,12 +24,12 @@ class Game
   end
 
 
-  def make_guess(_secret_word, _display)
-    puts 'Make your guess'
-    gets.chomp
-  end
-
-  def display_choices
+  def make_guess(secret_word,display)
+    while @@guesses > 0
+      puts 'Make your guess'
+      letter = gets.chomp
+    
+ 
     if secret_word.include?(letter) == true
       correct_letters.push(letter)
     else
