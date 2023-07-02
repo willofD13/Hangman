@@ -2,6 +2,8 @@
 
 class Game
   File.read('google-10000-english-no-swears.txt')
+
+  attr_reader :secret_word,:display
   
   def initialize
     @lines = File.readlines('google-10000-english-no-swears.txt').map { |line| line.gsub(/\s/, '') }
