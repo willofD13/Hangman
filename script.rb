@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Game
-  @@guesses = 6 
+  @@guesses = 6 ##keep count with this
 
   File.read('google-10000-english-no-swears.txt')
 
