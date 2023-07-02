@@ -12,3 +12,6 @@ def select_word(new_lines)
   end
   secret_word = words.sample
 end
+
+puts "Make your guess"
+letter = gets.chomp
