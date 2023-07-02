@@ -15,3 +15,6 @@ end
 
 puts "Make your guess"
 letter = gets.chomp
+
+correct_letters = []
+incorrect_letters = []
