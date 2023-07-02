@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Game
+  @@guesses = 6 
+
   File.read('google-10000-english-no-swears.txt')
 
   attr_reader :secret_word,:display
