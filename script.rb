@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'pry-byebug'
+#require 'pry-byebug'
 class Game
   @@guesses = 6 ##keep count with this
 
@@ -37,6 +37,9 @@ class Game
       else
         incorrect_letters.push(letter)
         @@guesses -= 1
+          if @@guesses == 0
+            puts "You are hanged..."
+          end
       end
       puts "correct letters :#{correct_letters}"
       puts "incorrect letters : #{incorrect_letters}"
