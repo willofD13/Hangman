@@ -21,6 +21,11 @@ class Game
   def initialize
     puts "Do you want to load a game?"
     answer = gets.chomp
+    if answer == 'y'
+      puts "Choose the save file from 1-5"
+      answer = gets.chomp 
+      Game.from_yaml("save_file#{answer}")
+    end
     
     @secret_word = @@words.sample.split('')
     @correct_letters = []
