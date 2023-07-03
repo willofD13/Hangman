@@ -19,6 +19,8 @@ class Game
   attr_accessor :correct_letters,:incorrect_letters
   
   def initialize
+    puts "Do you want to load a game?"
+    answer = gets.chomp
     
     @secret_word = @@words.sample.split('')
     @correct_letters = []
@@ -36,7 +38,9 @@ class Game
       puts "Press 'y' if you want to save"
       answer = gets.chomp
       if answer == 'y'
-        to_yaml
+        puts "choose your file from 1-5"
+        answer = gets.chomp 
+        File.open("save_file#{answer}", 'w') { |f| f.write(to_yaml) }
       end
 
       puts "Make your guess. #{@@guesses} guesses and you are hanged!"
@@ -94,7 +98,7 @@ class Game
   end
 
   def self.from_yaml(string)
-    data = yaml.load string
+    data = YAML.load(File.read(string))
     self.new(data[:secret_word], data[:display], data[:correct_letters], data[:incorrect_letters])
   end
 end
