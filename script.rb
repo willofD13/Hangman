@@ -23,11 +23,20 @@ class Game
     make_guess(secret_word,display)
   end
 
+  def 
+
 
   def make_guess(secret_word,display)
     correct_letters = []
     incorrect_letters = []
     while @@guesses > 0
+      
+      puts "Do you want to save?"
+      answer = gets.chomp
+      if answer == 'y'
+        to_yaml
+      end
+
       puts "Make your guess. #{@@guesses} guesses and you are hanged!"
       letter = gets.chomp.downcase
       
@@ -64,6 +73,15 @@ class Game
       end
       #binding.pry
     end
+  end
+
+  def to_yaml
+    YAML.dump ({
+      :secret_word => @secret_word,
+      :display => @display,
+      :correct_letters => @correct_letters,
+      :incorrect_letters => @incorrect_letters
+    })
   end
 end
 
