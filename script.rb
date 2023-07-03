@@ -18,7 +18,6 @@ class Game
     end
 
     @secret_word = @words.sample.split('')
-    p secret_word
     @display = Array.new(@secret_word.length, '_')
     puts @display.join(' ')
     make_guess(secret_word,display)
