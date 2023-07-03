@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 #require 'pry-byebug'
+require 'yaml'
 class Game
   @@guesses = 6 ##keep count with this
 
