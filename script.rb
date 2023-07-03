@@ -35,6 +35,7 @@ class Game
     make_guess
   end
 
+  
 
   def make_guess
     
@@ -43,10 +44,7 @@ class Game
       puts "Press 'y' if you want to save"
       answer = gets.chomp
       if answer == 'y'
-        puts "choose your file from 1-5"
-        answer = gets.chomp 
-        Dir.mkdir('saved_games') unless Dir.exist?('saved_games')
-        File.open("save_file#{answer}", 'w') { |f| f.write(to_yaml) }
+        save_game
       end
 
       puts "Make your guess. #{@@guesses} guesses and you are hanged!"
@@ -56,6 +54,15 @@ class Game
       display_letters(letter)
     end
   end
+
+  def save_game
+    puts "choose your file from 1-5"
+        answer = gets.chomp 
+        Dir.mkdir('saved_games') unless Dir.exist?('saved_games')
+        File.open("./saved_games/#{answer}.yml", 'w') { |f| f.write(to_yaml) }
+  end
+
+
       
     def display_letters(letter)
       if secret_word.include?(letter) == true
