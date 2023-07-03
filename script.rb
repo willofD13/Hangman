@@ -33,7 +33,7 @@ class Game
     
     while @@guesses > 0
       
-      puts "Do you want to save?"
+      puts "Press 'y' if you want to save"
       answer = gets.chomp
       if answer == 'y'
         to_yaml
