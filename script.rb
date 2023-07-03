@@ -29,7 +29,7 @@ class Game
     incorrect_letters = []
     while @@guesses > 0
       puts "Make your guess. #{@@guesses}guesses and you are hanged!"
-      letter = gets.chomp
+      letter = gets.chomp.downcase
       
  
       if secret_word.include?(letter) == true
