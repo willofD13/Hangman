@@ -18,6 +18,7 @@ class Game
     end
 
     @secret_word = @words.sample.split('')
+    p secret_word
     @display = Array.new(@secret_word.length, '_')
     puts @display.join(' ')
     make_guess(secret_word,display)
@@ -28,7 +29,7 @@ class Game
     correct_letters = []
     incorrect_letters = []
     while @@guesses > 0
-      puts "Make your guess. #{@@guesses}guesses and you are hanged!"
+      puts "Make your guess. #{@@guesses} guesses and you are hanged!"
       letter = gets.chomp.downcase
       
  
@@ -50,7 +51,18 @@ class Game
         i += 1
       end
       puts display.join(' ')
-      
+
+      display.each_with_index do |e,i|
+        v = e.ord
+          if v < 97 || v > 122
+            break
+          elsif v >= 97 && v <= 122 && i == display.length - 1
+              puts "You found the word"
+              @@guesses = 0
+          elsif v >= 97 && v <= 122 && i != display.length - 1
+            next
+          end
+      end
       #binding.pry
     end
   end
