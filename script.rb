@@ -90,6 +90,11 @@ class Game
       :incorrect_letters => @incorrect_letters
     })
   end
+
+  def self.from_yaml(string)
+    data = yaml.load string
+    self.new(data[:secret_word], data[:display], data[:correct_letters], data[:incorrect_letters])
+  end
 end
 
 game = Game.new
