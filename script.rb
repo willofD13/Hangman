@@ -20,7 +20,7 @@ class Game
   
   def initialize
     puts "Do you want to load a game?"
-    answer = gets.chomp
+    in = gets.chomp
     if answer == 'y'
       puts "Choose the save file from 1-5"
       answer = gets.chomp 
@@ -45,6 +45,7 @@ class Game
       if answer == 'y'
         puts "choose your file from 1-5"
         answer = gets.chomp 
+        Dir.mkdir('saved_games') unless Dir.exist?('saved_games')
         File.open("save_file#{answer}", 'w') { |f| f.write(to_yaml) }
       end
 
