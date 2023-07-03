@@ -22,7 +22,7 @@ class Game
     puts "Do you want to load a game?"
     input = gets.chomp
     if input == 'y'
-      
+      load_game
     end
     
     @secret_word = @@words.sample.split('')
@@ -67,42 +67,41 @@ class Game
   end
 
 
-      
-    def display_letters(letter)
-      if secret_word.include?(letter) == true
-        correct_letters.push(letter)
-      else
-        incorrect_letters.push(letter)
-        @@guesses -= 1
-          if @@guesses == 0
-            puts "You are hanged..."
-          end
-      end
-      puts "correct letters :#{correct_letters}"
-      puts "incorrect letters : #{incorrect_letters}"
-      display_word(letter)
+  def display_letters(letter)
+    if secret_word.include?(letter) == true
+      correct_letters.push(letter)
+    else
+      incorrect_letters.push(letter)
+      @@guesses -= 1
+        if @@guesses == 0
+          puts "You are hanged..."
+        end
     end
+    puts "correct letters :#{correct_letters}"
+    puts "incorrect letters : #{incorrect_letters}"
+    display_word(letter)
+  end
     
-    def display_word(letter)
-      i = 0
-      while i < secret_word.length
-        display[i] = letter if secret_word[i].eql?(letter) == true
-        i += 1
-      end
-      puts display.join(' ')
-
-      display.each_with_index do |e,i|
-        v = e.ord
-          if v < 97 || v > 122
-            break
-          elsif v >= 97 && v <= 122 && i == display.length - 1
-              puts "You found the word"
-              @@guesses = 0
-          elsif v >= 97 && v <= 122 && i != display.length - 1
-            next
-          end
-      end
+  def display_word(letter)
+    i = 0
+    while i < secret_word.length
+      display[i] = letter if secret_word[i].eql?(letter) == true
+      i += 1
     end
+    puts display.join(' ')
+
+    display.each_with_index do |e,i|
+      v = e.ord
+        if v < 97 || v > 122
+          break
+        elsif v >= 97 && v <= 122 && i == display.length - 1
+            puts "You found the word"
+            @@guesses = 0
+        elsif v >= 97 && v <= 122 && i != display.length - 1
+          next
+        end
+    end
+  end
       #binding.pry
 
   def to_yaml
