@@ -63,7 +63,7 @@ class Game
   def load_game
     puts "Choose the save file from 1-5"
       answer = gets.chomp 
-      Game.from_yaml("save_file#{answer}")
+      Game.from_yaml("./save_games/#{answer}.yml")
   end
 
 
