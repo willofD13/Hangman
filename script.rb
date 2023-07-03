@@ -6,19 +6,21 @@ class Game
 
   File.read('google-10000-english-no-swears.txt')
 
+  lines = File.readlines('google-10000-english-no-swears.txt').map { |line| line.gsub(/\s/, '') }
+    
+    
+  @@words = []
+    lines.each do |line|
+      @@words.push(line) if line.length > 5 && line.length < 12
+    end
+    
+
   attr_reader :secret_word,:display
   attr_accessor :correct_letters,:incorrect_letters
   
   def initialize
-    @lines = File.readlines('google-10000-english-no-swears.txt').map { |line| line.gsub(/\s/, '') }
     
-    
-    @words = []
-    @lines.each do |line|
-      @words.push(line) if line.length > 5 && line.length < 12
-    end
-    
-    @secret_word = @words.sample.split('')
+    @secret_word = @@words.sample.split('')
     @correct_letters = []
     @incorrect_letters = []
     @display = Array.new(@secret_word.length, '_')
