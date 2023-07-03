@@ -16,19 +16,18 @@ class Game
     @lines.each do |line|
       @words.push(line) if line.length > 5 && line.length < 12
     end
-
+    
     @secret_word = @words.sample.split('')
+    @correct_letters = []
+    @incorrect_letters = []
     @display = Array.new(@secret_word.length, '_')
     puts @display.join(' ')
-    make_guess(secret_word,display)
+    make_guess
   end
 
-  def 
 
-
-  def make_guess(secret_word,display)
-    correct_letters = []
-    incorrect_letters = []
+  def make_guess
+    
     while @@guesses > 0
       
       puts "Do you want to save?"
@@ -40,7 +39,12 @@ class Game
       puts "Make your guess. #{@@guesses} guesses and you are hanged!"
       letter = gets.chomp.downcase
       
- 
+
+      display_letters(letter)
+    end
+  end
+      
+    def display_letters(letter)
       if secret_word.include?(letter) == true
         correct_letters.push(letter)
       else
@@ -52,7 +56,10 @@ class Game
       end
       puts "correct letters :#{correct_letters}"
       puts "incorrect letters : #{incorrect_letters}"
-
+      display_word(letter)
+    end
+    
+    def display_word(letter)
       i = 0
       while i < secret_word.length
         display[i] = letter if secret_word[i].eql?(letter) == true
@@ -71,9 +78,8 @@ class Game
             next
           end
       end
-      #binding.pry
     end
-  end
+      #binding.pry
 
   def to_yaml
     YAML.dump ({
