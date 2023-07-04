@@ -18,13 +18,32 @@ class Game
   attr_reader :secret_word,:display
   attr_accessor :correct_letters,:incorrect_letters
   
-  def initialize
-    puts "Do you want to load a game?"
-    input = gets.chomp
-    if input == 'y'
-      load_game
-    end
+  def initialize(data = nil)
     
+
+    if Dir.exist?('saved_games') && data.nil?
+      puts "Do you want to load a game?"
+      input = gets.chomp
+      if input == 'y'
+        load_game
+      else
+        new_game
+      end
+    elsif Dir.exist?('saved_games') && !data.nil?
+      
+      @secret_word = data[:secret_word]
+      @display = data[:display]
+      @correct_letters = data[:correct_letters] 
+      @incorrect_letters = data[:incorrect_letters]
+      p @display.join('_')
+      
+      make_guess
+    else 
+      new_game
+    end
+  end
+
+  def new_game
     @secret_word = @@words.sample.split('')
     @correct_letters = []
     @incorrect_letters = []
@@ -33,23 +52,20 @@ class Game
     make_guess
   end
 
-  
-
   def make_guess
     
     while @@guesses > 0
-      
-      puts "Press 'y' if you want to save"
-      answer = gets.chomp
-      if answer == 'y'
-        save_game
+ 
+      puts "Make your guess. #{@@guesses} guesses and you are hanged! Type 'save' if you want to save"
+      input = gets.chomp.downcase
+      if input == 'save' 
+        save_game 
+      elsif input.length != 1
+        puts "One letter only!"
+        make_guess
       end
 
-      puts "Make your guess. #{@@guesses} guesses and you are hanged!"
-      letter = gets.chomp.downcase
-      
-
-      display_letters(letter)
+      display_letters(input)
     end
   end
 
@@ -63,7 +79,7 @@ class Game
   def load_game
     puts "Choose the save file from 1-5"
       answer = gets.chomp 
-      Game.from_yaml("./save_games/#{answer}.yml")
+      Game.from_yaml("./saved_games/#{answer}.yml")
   end
 
 
@@ -75,6 +91,7 @@ class Game
       @@guesses -= 1
         if @@guesses == 0
           puts "You are hanged..."
+          puts secret_word.join('_')
         end
     end
     puts "correct letters :#{correct_letters}"
@@ -102,7 +119,7 @@ class Game
         end
     end
   end
-      #binding.pry
+     
 
   def to_yaml
     YAML.dump ({
@@ -115,7 +132,9 @@ class Game
 
   def self.from_yaml(string)
     data = YAML.load(File.read(string))
-    self.new(data[:secret_word], data[:display], data[:correct_letters], data[:incorrect_letters])
+    
+    self.new(data)
+    
   end
 end
 
