@@ -22,9 +22,9 @@ class Game
     
 
     if Dir.exist?('saved_games') && data.nil?
-      puts "Do you want to load a game?"
+      puts "Type 'load' if you want to load a game"
       input = gets.chomp
-      if input == 'y'
+      if input == 'load'
         load_game
       else
         new_game
@@ -51,6 +51,8 @@ class Game
     puts @display.join(' ')
     make_guess
   end
+  
+  private
 
   def make_guess
     
